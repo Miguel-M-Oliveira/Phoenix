@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     bool facingRight = true;
     float moveDirection = 0;
     bool isGrounded = false;
+    bool canDoubleJump;
     Vector3 cameraPos;
     Rigidbody2D r2d;
     BoxCollider2D mainCollider;
@@ -64,15 +65,27 @@ public class PlayerController : MonoBehaviour
         }
 
         // Jumping
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
+            if (isGrounded)
+            {
+                r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
+                canDoubleJump = true;
+            }
+            else
+            {
+                if (canDoubleJump)
+                {
+                    canDoubleJump = false;
+                    r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
+                }
+            }
         }
 
         // Camera follow
         if (mainCamera)
         {
-            mainCamera.transform.position = new Vector3(t.position.x, t.position.y, cameraPos.z);
+            mainCamera.transform.position = new Vector3(t.position.x + 10, t.position.y, cameraPos.z);
         }
     }
 
