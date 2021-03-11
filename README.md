@@ -3,6 +3,7 @@
 by Miguel Oliveira
 
 Controls: WASD to move/navigate the menu
+
           Spacebar to jump/double-jump/confirm selection in menu
 
 
